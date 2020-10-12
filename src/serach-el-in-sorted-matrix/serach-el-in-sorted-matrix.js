@@ -16,6 +16,7 @@ function search(value, data) {
     let x = 0;
     let left = -1;
     let right = data[0].length;
+    let i = -1;
 
     if (data[y][x] > value) {
         return false
@@ -26,7 +27,7 @@ function search(value, data) {
     let stop = false;
 
     while (right - left > 0 && !stop) {
-
+        i++;
         if (data[y][x] === value) {
             stop = true;
         } else {
@@ -49,6 +50,7 @@ function search(value, data) {
     stop = false;
 
     while (right - left > 0 && !stop) {
+        i++;
         y = Math.floor((left + right) / 2);
         if (data[y][x] === value) {
             stop = true;
@@ -59,7 +61,7 @@ function search(value, data) {
         }
     }
 
-    return { y, x };
+    return { y, x, i };
 
 }
 
@@ -69,7 +71,7 @@ console.log(
     // search(3, input),
     // search(10, input),
     // search(12, input),
-    search(21, input),
+    search(86, input),
     // search(25, input),
     // search(30, input),
     // search(75, input)
