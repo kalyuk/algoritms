@@ -8,23 +8,25 @@ const input = [
     [6, 16, 26, 36, 46, 56, 66, 76, 86, 96],
     [7, 17, 27, 37, 47, 57, 67, 77, 87, 97],
     [8, 18, 28, 38, 48, 58, 68, 78, 88, 98],
-    [9, 19, 29, 39, 49, 59, 69, 79, 89, 99]
+    [9, 19, 29, 39, 49, 59, 69, 79, 89, 99],
 ];
 
 function search(value, data) {
+
     let y = 0;
     let x = 0;
+    let i = 0;
+
     let left = -1;
     let right = data[0].length;
-    let i = -1;
 
-    if (data[y][x] > value) {
-        return false
+    if (data[y][x] > value || data[data.length - 1][data[y].length - 1] < value) {
+        return false;
     } else if (data[y][data[y].length - 1] < value) {
         x = data[y].length - 1;
     }
 
-    let stop = false;
+    let stop = false
 
     while (right - left > 0 && !stop) {
         i++;
@@ -34,7 +36,7 @@ function search(value, data) {
 
             x = Math.floor((left + right) / 2);
 
-            if (data[y][x] < value && data[y][x + 1] > value) {
+            if (data[y][x + 1] === undefined || data[y][x] < value && data[y][x + 1] > value) {
                 stop = true;
             } else if (data[y][x] < value) {
                 left = x;
@@ -42,7 +44,6 @@ function search(value, data) {
                 right = x;
             }
         }
-
     }
 
     left = -1;
@@ -52,6 +53,7 @@ function search(value, data) {
     while (right - left > 0 && !stop) {
         i++;
         y = Math.floor((left + right) / 2);
+
         if (data[y][x] === value) {
             stop = true;
         } else if (data[y][x] < value) {
@@ -61,20 +63,8 @@ function search(value, data) {
         }
     }
 
-    return { y, x, i };
+    return { value, y, x, i };
 
 }
 
-console.log(
-    // search(-11, input),
-    //search(0, input),
-    // search(3, input),
-    // search(10, input),
-    // search(12, input),
-    search(86, input),
-    // search(25, input),
-    // search(30, input),
-    // search(75, input)
-    // search(150, input)
-);
-// x=2, y=4
+console.log(search(99, input), search(86, input), search(38, input), search(10, input));
